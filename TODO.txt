@@ -1,0 +1,8 @@
+ToDo
+Add a comments table to the database
+Add low lever user authentication in order to post a comment
+add complementary color to background of non-html elements
+Impliment PHP to pull comments from previous students
+Add a user profile page where users can upload a photo and brief bio of themselves/make comments about career paths
+Add a comments table to the database, with a record of the user that posted it, the table its related to, and the comment
+this will be on each page
