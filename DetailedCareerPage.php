@@ -1,10 +1,15 @@
 <?php
-/*ToDo
-Add a comments table to the database
-Add low lever user authentication in order to post a comment
-add complementary color to background of non-html elements
-Impliment PHP to pull comments from previous students
-*/
+
+    include 'connect.php';
+
+    $selectedCareerId = $_POST['careers'];
+
+    $singleCareerQuery = "SELECT * FROM career WHERE CareerId = {$_POST['careers']}";
+
+    $selectedCareerPDO = $db->prepare($singleCareerQuery);
+    $selectedCareerPDO->execute();
+    $selectedCareer = $selectedCareerPDO->fetch();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,9 +28,7 @@ Impliment PHP to pull comments from previous students
       <i class="fa fa-align-center" aria-hidden="true"><h3>Bit Career Recommendations!</h3></i>
    </div>
    <div id='Content'>
-        <i class="fas fa-centercode "><p> This is a website with a really simple purpose. To help BIT students pick their term 5 electives based off 
-        the careers that they want to presue. Take a while to look at see through all the prepared careers, and make a comment if you think any of the information
-        can be improved.</i>
+        <i class="fas fa-centercode "><p> So, you are interested in becoming a <?=$selectedCareer['CareerName']?></i>
     </div>
     <ul class="nav justify-content-center">
         <li class="nav-item">
@@ -42,16 +45,22 @@ Impliment PHP to pull comments from previous students
         </li>
     </ul>
 
-    <br>
-    <br>
-
-    <div id='CommentContainer'>
-    <h5>Have a commment about some data we are presenting?</h5>
-      <a name="sendToComments" class="btn btn-primary" href="CreateComment.php" role="button">Click here to create a new post</a>
-      <a name="sendToNewUser" class="btn btn-primary" href="Register.php" role="button">Click here to register for an account</a>
-      <div id='Comments'>
-        </div>
+    <div class="DisplayCareerInfo">
+        <h3>Alright, here is some info</h3>
+        <br>
+        <h4>Career Name: <?=$selectedCareer['CareerName']?></h4>
+        <br>
+        <h6>Job Prospects: <?=$selectedCareer['CareerDemand']?></h6>
+        <br>
+        <h6>Average Salary: <?=$selectedCareer['CareerSalary']?>
+        <br>
+        <h6>Brief Description Below</h6>
+        <p id="careerDescription"><?=$selectedCareer['CareerDescription']?></p>
+        <br>
+        <h6>Recommended term 5 courses<h6>
     </div>
+
+    <div class="comments">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
