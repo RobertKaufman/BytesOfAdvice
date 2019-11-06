@@ -15,7 +15,7 @@
 
     //function designed to be passed a course Id and return the course data. Designed to be useable
     //in a loop function
-    function fetchCourseData($courseId, $db)
+    function fetchCourseData($courseId, PDO $db)
     {
         $singleCourseSelectStatement = 'SELECT * FROM courses WHERE CourseId = :courseId';
         $singleCoursePDO = $db->prepare($singleCourseSelectStatement);
@@ -80,8 +80,7 @@
         <br>
         <h6>Recommended term 5 courses<h6>
         <?php while($courseFK = $recommendedCoursesPDO->fetch()):?>
-        <?=var_dump($db)?>
-            <?= $currentCourse = fetchCourseData($courseFK[0], $db)?>
+            <?php $currentCourse = fetchCourseData($courseFK[0], $db)?><!-- something is being passed as an array here...-->
             <h6>Course Name: <?=$currentCourse['Name']?></h4>
             <h6>Description:</h4>
             <p><?=$currentCourse['Description']?></p>
