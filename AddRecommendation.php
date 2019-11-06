@@ -1,4 +1,18 @@
 <?php
+
+    require 'connect.php';
+
+    $SelectCareersStatement = 'SELECT * FROM career';
+    $CareerPDOExectue = $db->prepare($SelectCareersStatement);
+    $CareerPDOExectue->execute();
+    $careerList = $CareerPDOExectue->fetchAll();
+
+    $SelectBITCoursesStatement = 'SELECT * FROM courses';
+    $CoursePDOExecute = $db->prepare($SelectBITCoursesStatement);
+    $CoursePDOExecute->execute();
+    $CourseList = $CoursePDOExecute->fetchAll();
+
+
 ?>
 
 <!doctype html>
@@ -11,9 +25,52 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type= "text/css" href="StyleBytes.css">
   </head>
   <body>
-      
+  <div id='ContentHeading'>
+      <i class="fa fa-align-center" aria-hidden="true"><h3>Bit Career Recommendations!</h3></i>
+   </div>
+   <div id='Content'>
+        <i class="fas fa-centercode "><p> Use this page to browse the various career pathes you can take</i>
+    </div>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="LaunchPage.php">HomePage</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="CareerHomePage.php">See the careeres!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="CoursesHomePage.php">See the Courses!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="CreateAccount.php">Create an account!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+        </li>
+    </ul>
+    <form action='AddRecommendationScript.php' method="post">
+      <select name="careers">
+        <?php foreach($careerList as $career):?>
+            <option value=<?=$career['CareerId']?>><?=$career['CareerName']?></option>
+        <?php endforeach?>
+      </select>
+      <select name="courses">
+        <?php foreach($CourseList as $Course):?>
+            <option value=<?=$Course['CourseId']?>><?=$Course['Name']?></option>
+        <?php endforeach?>
+      </select>
+      <input type='submit' value='Submit'>
+    </form>
+    <!--Admin Nav Bars-->
+    <h6>Users and admins can use the pages below<h6>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+        </li>
+    </ul>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -2,13 +2,34 @@
 
     include 'connect.php';
 
-    $selectedCareerId = $_POST['careers'];
+    //filtered to ensure a malicious user cannot modify the html to allow a non-int value to be passed
+    $selectedCareerId = filter_input(INPUT_POST, 'careers', FILTER_SANITIZE_NUMBER_INT);
 
-    $singleCareerQuery = "SELECT * FROM career WHERE CareerId = {$_POST['careers']}";
+    $singleCareerQuery = "SELECT * FROM career WHERE CareerId = :career";
 
     $selectedCareerPDO = $db->prepare($singleCareerQuery);
+    $selectedCareerPDO->bindValue(':career', $selectedCareerId);
     $selectedCareerPDO->execute();
     $selectedCareer = $selectedCareerPDO->fetch();
+
+
+    //function designed to be passed a course Id and return the course data. Designed to be useable
+    //in a loop function
+    function fetchCourseData($courseId, $db)
+    {
+        $singleCourseSelectStatement = 'SELECT * FROM courses WHERE CourseId = :courseId';
+        $singleCoursePDO = $db->prepare($singleCourseSelectStatement);
+        $singleCoursePDO->bindValue(':courseId', $courseId);
+        $singleCoursePDO->execute();
+        $returnedCourse = $singleCoursePDO->fetch();
+        return $returnedCourse;
+    }
+
+    $recommendedCoursesSelect = 'SELECT CourseId FROM jobrequirements WHERE CareerId = :careerId';
+    $recommendedCoursesPDO = $db->prepare($recommendedCoursesSelect);
+    $recommendedCoursesPDO->bindValue(':careerId', $selectedCareerId);
+    $recommendedCoursesPDO->execute();
+    //$coursesId = $recommendedCoursesPDO->fetchAll();
 
 ?>
 <!doctype html>
@@ -58,9 +79,24 @@
         <p id="careerDescription"><?=$selectedCareer['CareerDescription']?></p>
         <br>
         <h6>Recommended term 5 courses<h6>
+        <?php while($courseFK = $recommendedCoursesPDO->fetch()):?>
+        <?=var_dump($db)?>
+            <?= $currentCourse = fetchCourseData($courseFK[0], $db)?>
+            <h6>Course Name: <?=$currentCourse['Name']?></h4>
+            <h6>Description:</h4>
+            <p><?=$currentCourse['Description']?></p>
+            <?= $currentCourse = null?>
+        <?php endwhile?>
     </div>
 
     <div class="comments">
+    </div>
+    <h6>Users and admins can use the pages below<h6>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+        </li>
+    </ul>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -50,8 +50,14 @@ Impliment PHP to pull comments from previous students
       <a name="sendToComments" class="btn btn-primary" href="CreateComment.php" role="button">Click here to create a new post</a>
       <a name="sendToNewUser" class="btn btn-primary" href="Register.php" role="button">Click here to register for an account</a>
       <div id='Comments'>
-        </div>
+      </div>
     </div>
+    <h6>Users and admins can use the pages below<h6>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+        </li>
+    </ul>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
