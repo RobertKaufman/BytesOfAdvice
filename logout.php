@@ -1,17 +1,14 @@
 <?php
-/*ToDo
-Add a comments table to the database
-Add low lever user authentication in order to post a comment
-add complementary color to background of non-html elements
-Impliment PHP to pull comments from previous students
-*/
-    require 'connect.php';
 
-    $allBlogs = "SELECT comment time FROM comments WHERE page='LaunchPage' ORDER BY commentpk DESC LIMIT 5";
-    $fetchStatement = $db->prepare($allBlogs); // Returns a PDOStatement object.
-    $fetchStatement->execute(); // The query is now executed.
-    $allBlogs= $fetchStatement->fetchAll();
+    function logout()
+    {
+        unset($_SERVER['PHP_AUTH_USER']);
+        unset($_SERVER['PHP_AUTH_PW']);
+    }
+
+    logout();
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -53,22 +50,16 @@ Impliment PHP to pull comments from previous students
 
     <div id='CommentContainer'>
     <h5>Have a commment about some data we are presenting?</h5>
-    <form id='launchcomment'>
-    <button name='launchcomment' formid='launchcomment' type="submit" formaction='CreateLaunchComment.php' formmethod='post' class="btn btn-primary">Leave a comment</button>
-      <!--<a name="sendToComments" class="btn btn-primary" href="CreateLaunchComment.php" role="button">Click here to create a new post</a>-->
-      <a name="sendToNewUser" class="btn btn-primary" href="CreateAccount.php" role="button">Click here to register for an account</a>
-    </form>
+      <a name="sendToComments" class="btn btn-primary" href="CreateComment.php" role="button">Click here to create a new post</a>
+      <a name="sendToNewUser" class="btn btn-primary" href="Register.php" role="button">Click here to register for an account</a>
       <div id='Comments'>
-      <?php foreach(($allBlogs) as $blogPost): ?>
-        <p><?= $blogPost['comment']?></p>
-        <br>
-        <?php endforeach?>
       </div>
     </div>
     <h6>Users and admins can use the pages below<h6>
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course</a></li>
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link active" href="logout.php">Log Out</a>
         </li>

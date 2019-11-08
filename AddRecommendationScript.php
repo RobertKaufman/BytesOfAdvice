@@ -2,8 +2,8 @@
 
 include 'connect.php';
 
-$addedCourse = $_POST['courses'];
-$addedCareer = $_POST['careers'];
+$addedCourse = filter_input(INPUT_POST, "courses", FILTER_SANITIZE_NUMBER_INT);
+$addedCareer = filter_input(INPUT_POST, "careers", FILTER_SANITIZE_NUMBER_INT);
 
 /*function addCourseRecommendation($careerId, $courseId, $databasePDO){
     $insertStatement = 'INSERT INTO jobrequirements(careerId, courseId) VALUES (:careerId, :courseId)';

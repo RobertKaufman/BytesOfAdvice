@@ -1,6 +1,7 @@
 <?php
 
-    require 'connect.php';
+    //require 'connect.php';
+    require 'authenticateuser.php';
 
     $SelectCareersStatement = 'SELECT * FROM career';
     $CareerPDOExectue = $db->prepare($SelectCareersStatement);
@@ -39,16 +40,16 @@
             <a class="nav-link active" href="LaunchPage.php">HomePage</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="CareerHomePage.php">See the careeres!</a>
+            <a class="nav-link active" href="CareerHomePage.php">See the careeres</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="CoursesHomePage.php">See the Courses!</a>
+            <a class="nav-link active" href="CoursesHomePage.php">See the Courses</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="CreateAccount.php">Create an account!</a>
+            <a class="nav-link active" href="CreateAccount.php">Create an account</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course</a>
         </li>
     </ul>
     <form action='AddRecommendationScript.php' method="post">
@@ -68,7 +69,10 @@
     <h6>Users and admins can use the pages below<h6>
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="logout.php">Log Out</a>
         </li>
     </ul>
     <!-- Optional JavaScript -->

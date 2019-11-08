@@ -1,4 +1,43 @@
 <?php
+//look at renaming this page - confusing page name
+require('connect.php');
+$AttemptedName = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_SPECIAL_CHARS);
+$AttemptedPass = filter_input(INPUT_POST, 'UserPass', FILTER_DEFAULT);
+$SuccessFlag = false;
+
+
+//automatically log in a user if they successfully create an account
+try{
+  //pull all the user name records
+  //and match it the attempted one in the collection to see if it already exists. if it does, set successflag to false
+
+  $getUserNamesStatment = "SELECT UserName, Password FROM users";
+  $checkPDO = $db->prepare($getUserNamesStatment);
+  $checkPDO->execute();
+  while($checkUser = $checkPDO->fetch())
+  {
+    if($AttemptedName == $checkUser['UserName'] && $AttemptedPass == $checkUser['Password'])
+    {
+      $SuccessFlag = True;
+      session_start();
+      $_SESSION['Authenticated'] = "true";
+      $_SESSION['CurrentUser'] = $AttemptedName;
+      $_SERVER["PHP_AUTH_USER"] = $AttemptedName;
+      $_SERVER["PHP_AUTH_PW"] = $AttemptedPass;
+      
+    }
+  }
+
+
+
+}
+catch(PDOException $e)
+{
+  print("Error: " . $e.getMessage());
+  die();//i like the name ok???
+}
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,35 +66,18 @@
             <a class="nav-link active" href="CreateAccount.php">Create an account</a>
         </li>
     </ul>
-  <div id='ContentHeading'>
-      <i class="fa fa-align-center" aria-hidden="true"><h3>Create an account below</h3></i>
-   </div>
-   <div id="AccountLogin">
-   <div id='CreateAccountForm'>
-   <h4>Create a new account</h4>
-       <div class="form-group">
-            <form action='CreateUserResult.php' method='post'>
-                <label for="NewUserName"></label>
-                <input type="text"
-                class="form-control" name="UserName" id="UserName" aria-describedby="helpId" placeholder="Be Creative!">
-                <small id="helpId" class="form-text text-muted">UserName</small>
-                <label for="NewUserPass"></label>
-                <input type="text"
-                class="form-control" name="UserPass" id="UserPass" aria-describedby="helpId" placeholder="Be Smart!">
-                <small id="helpId" class="form-text text-muted">UserName</small>
-                <input type="submit" value="Submit">
-            </form>
-       </div>
-    </div>
-    <h6>Users and admins can use the pages below<h6>
+    <?php if($SuccessFlag === true):?>
+      <p>Logged in succesfully. Check out our links on the nav bars</p>
+    <?php endif?>
+    <?php if($SuccessFlag === false):?>
+      <p>There was a problem with logging in. Please try again</p>
+    <?php endif?>
+  <h6>Users and admins can use the pages below<h6>
     <ul class="nav justify-content-center">
         <li class="nav-item">
             <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="logout.php">Log Out</a>
-        </li>
-    </ul>
+    </ul>   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

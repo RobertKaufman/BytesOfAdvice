@@ -1,5 +1,18 @@
 <?php
+
+    include 'connect.php';
+
+    //filtered to ensure a malicious user cannot modify the html to allow a non-int value to be passed
+    $selectedCourseId = filter_input(INPUT_POST, 'SelectedCourse', FILTER_SANITIZE_NUMBER_INT);
+
+    $singleCourseQuery = "SELECT * FROM courses WHERE CourseId = :course";
+
+    $selectedCoursePDO = $db->prepare($singleCourseQuery);
+    $selectedCoursePDO->bindValue(':course', $selectedCourseId);
+    $selectedCoursePDO->execute();
+    $selectedCourse = $selectedCoursePDO->fetch();
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,47 +26,43 @@
     <link rel="stylesheet" type= "text/css" href="StyleBytes.css">
   </head>
   <body>
-  <ul class="nav justify-content-center">
+  <div id='ContentHeading'>
+      <i class="fa fa-align-center" aria-hidden="true"><h3>Bit Career Recommendations!</h3></i>
+   </div>
+   <div id='Content'>
+        <i class="fas fa-centercode "><p> So, you are interested in taking  <?=$selectedCourse['Name']?></i>
+    </div>
+    <ul class="nav justify-content-center">
         <li class="nav-item">
             <a class="nav-link active" href="LaunchPage.php">HomePage</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="CareerHomePage.php">See the careeres</a>
+            <a class="nav-link active" href="CareerHomePage.php">See the careeres!</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="CoursesHomePage.php">See the Courses</a>
+            <a class="nav-link active" href="CoursesHomePage.php">See the Courses!</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="CreateAccount.php">Create an account</a>
+            <a class="nav-link active" href="CreateAccount.php">Create an account!</a>
         </li>
     </ul>
-  <div id='ContentHeading'>
-      <i class="fa fa-align-center" aria-hidden="true"><h3>Create an account below</h3></i>
-   </div>
-   <div id="AccountLogin">
-   <div id='CreateAccountForm'>
-   <h4>Create a new account</h4>
-       <div class="form-group">
-            <form action='CreateUserResult.php' method='post'>
-                <label for="NewUserName"></label>
-                <input type="text"
-                class="form-control" name="UserName" id="UserName" aria-describedby="helpId" placeholder="Be Creative!">
-                <small id="helpId" class="form-text text-muted">UserName</small>
-                <label for="NewUserPass"></label>
-                <input type="text"
-                class="form-control" name="UserPass" id="UserPass" aria-describedby="helpId" placeholder="Be Smart!">
-                <small id="helpId" class="form-text text-muted">UserName</small>
-                <input type="submit" value="Submit">
-            </form>
-       </div>
+
+    <div class="DisplayCareerInfo">
+        <h3>Alright, here is some info</h3>
+        <br>
+        <h4>Course Name: <?=$selectedCourse['Name']?></h4>
+        <br>
+        <h6>Brief Description Below</h6>
+        <p id="careerDescription"><?=$selectedCourse['Description']?></p>
+        <br>
+    </div>
+
+    <div class="comments">
     </div>
     <h6>Users and admins can use the pages below<h6>
     <ul class="nav justify-content-center">
         <li class="nav-item">
             <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="logout.php">Log Out</a>
         </li>
     </ul>
     <!-- Optional JavaScript -->

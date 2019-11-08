@@ -1,8 +1,47 @@
 <?php
+//look at renaming this page - confusing page name
 require('connect.php');
-$AttemptedName = filter_input(INPUT_POST, 'NewUserName', FILTER_SANITIZE_SPECIAL_CHARS);
-$AttemptedPass = filter_input(INPUT_POST, 'NewUserPass', FILTER_DEFAULT);
-$SuccessFlag = false;
+$AttemptedName = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_SPECIAL_CHARS);
+$AttemptedPass = filter_input(INPUT_POST, 'UserPass', FILTER_DEFAULT);
+$SuccessFlag = true;
+
+
+//automatically log in a user if they successfully create an account
+try{
+  //pull all the user name records
+  //and match it the attempted one in the collection to see if it already exists. if it does, set successflag to false
+
+  $getUserNamesStatment = "SELECT UserName FROM users";
+  $checkPDO = $db->prepare($getUserNamesStatment);
+  $checkPDO->execute();
+  while($checkName = $checkPDO->fetch())
+  {
+    if($AttemptedName == $checkName['UserName'])
+    {
+      $SuccessFlag = false;
+      ECHO "User Name already taken. Try another!";
+    }
+  }
+
+
+  if($SuccessFlag == true)
+  {
+    $newUserData = "INSERT INTO users (UserName, Password, Email) VALUES (:username, :password, NULL)";
+    $insertPDO = $db->prepare($newUserData);
+    $insertPDO->bindValue(':username', $AttemptedName);
+    $insertPDO->bindValue(':password', $AttemptedPass);
+    $insertPDO->execute();
+    session_start();
+    $_SESSION['Authenticated'] = "true";
+    $_SERVER['PHP_AUTH_USER'] = $AttemptedName;
+  }
+
+}
+catch(PDOException $e)
+{
+  print("Error: " . $e.getMessage());
+  die();//i like the name ok???
+}
 
 
 ?>
@@ -19,6 +58,26 @@ $SuccessFlag = false;
     <link rel="stylesheet" type= "text/css" href="StyleBytes.css">
   </head>
   <body>
+  <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="LaunchPage.php">HomePage</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="CareerHomePage.php">See the careeres</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="CoursesHomePage.php">See the Courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="CreateAccount.php">Create an account</a>
+        </li>
+    </ul>
+    <?php if($SuccessFlag === true):?>
+      <p>Account created succesfully. Check out our links on the nav bars</p>
+    <?php endif?>
+    <?php if($SuccessFlag === false):?>
+      <p>There was a problem with account creation. Please try again</p>
+    <?php endif?>
   <h6>Users and admins can use the pages below<h6>
     <ul class="nav justify-content-center">
         <li class="nav-item">

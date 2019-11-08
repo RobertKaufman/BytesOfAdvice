@@ -13,8 +13,6 @@
     $selectedCareer = $selectedCareerPDO->fetch();
 
 
-    //function designed to be passed a course Id and return the course data. Designed to be useable
-    //in a loop function
     function fetchCourseData($courseId, PDO $db)
     {
         $singleCourseSelectStatement = 'SELECT * FROM courses WHERE CourseId = :courseId';

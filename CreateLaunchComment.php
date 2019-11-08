@@ -1,16 +1,5 @@
 <?php
-/*ToDo
-Add a comments table to the database
-Add low lever user authentication in order to post a comment
-add complementary color to background of non-html elements
-Impliment PHP to pull comments from previous students
-*/
-    require 'connect.php';
-
-    $allBlogs = "SELECT comment time FROM comments WHERE page='LaunchPage' ORDER BY commentpk DESC LIMIT 5";
-    $fetchStatement = $db->prepare($allBlogs); // Returns a PDOStatement object.
-    $fetchStatement->execute(); // The query is now executed.
-    $allBlogs= $fetchStatement->fetchAll();
+    require 'authenticateuser.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,9 +18,6 @@ Impliment PHP to pull comments from previous students
       <i class="fa fa-align-center" aria-hidden="true"><h3>Bit Career Recommendations!</h3></i>
    </div>
    <div id='Content'>
-        <i class="fas fa-centercode "><p> This is a website with a really simple purpose. To help BIT students pick their term 5 electives based off 
-        the careers that they want to presue. Take a while to look at see through all the prepared careers, and make a comment if you think any of the information
-        can be improved.</i>
     </div>
     <ul class="nav justify-content-center">
         <li class="nav-item">
@@ -47,24 +33,10 @@ Impliment PHP to pull comments from previous students
             <a class="nav-link active" href="CreateAccount.php">Create an account</a>
         </li>
     </ul>
-
-    <br>
-    <br>
-
-    <div id='CommentContainer'>
-    <h5>Have a commment about some data we are presenting?</h5>
-    <form id='launchcomment'>
-    <button name='launchcomment' formid='launchcomment' type="submit" formaction='CreateLaunchComment.php' formmethod='post' class="btn btn-primary">Leave a comment</button>
-      <!--<a name="sendToComments" class="btn btn-primary" href="CreateLaunchComment.php" role="button">Click here to create a new post</a>-->
-      <a name="sendToNewUser" class="btn btn-primary" href="CreateAccount.php" role="button">Click here to register for an account</a>
-    </form>
-      <div id='Comments'>
-      <?php foreach(($allBlogs) as $blogPost): ?>
-        <p><?= $blogPost['comment']?></p>
-        <br>
-        <?php endforeach?>
-      </div>
+    <div id='commentForm'>
     </div>
+
+
     <h6>Users and admins can use the pages below<h6>
     <ul class="nav justify-content-center">
         <li class="nav-item">
