@@ -35,23 +35,7 @@
    <div id='Content'>
         <i class="fas fa-centercode "><p> Use this page to browse the various career pathes you can take</i>
     </div>
-    <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link active" href="LaunchPage.php">HomePage</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="CareerHomePage.php">See the careeres</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="CoursesHomePage.php">See the Courses</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="CreateAccount.php">Create an account</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course</a>
-        </li>
-    </ul>
+    <?php require 'Templates/topnavbar.php';?>
     <form action='AddRecommendationScript.php' method="post">
       <select name="careers">
         <?php foreach($careerList as $career):?>
@@ -66,15 +50,7 @@
       <input type='submit' value='Submit'>
     </form>
     <!--Admin Nav Bars-->
-    <h6>Users and admins can use the pages below<h6>
-    <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link active" href="AddRecommendation.php">Add a recommended course</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="logout.php">Log Out</a>
-        </li>
-    </ul>
+    <?php require 'templates/bottomnavbar.php';?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

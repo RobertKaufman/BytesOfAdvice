@@ -7,7 +7,7 @@ require 'connect.php';
 
 
 //sanitize this beforehand
-$getUserNamesStatment = "SELECT UserName, Password FROM users WHERE Username = :providedName AND Password = :providedPass";
+/*$getUserNamesStatment = "SELECT UserName, Password FROM users WHERE Username = :providedName AND Password = :providedPass";
 $checkPDO = $db->prepare($getUserNamesStatment);
 $checkPDO->bindValue(":providedName", $_SERVER['PHP_AUTH_USER']);
 $checkPDO->bindValue(":providedPass", $_SERVER['PHP_AUTH_PW']);
@@ -16,17 +16,9 @@ if($checkPDO->rowCount() > 0)
 {
     define('USER_LOGIN', $_SERVER['PHP_AUTH_USER']);
     define('USER_PASSWORD', $_SERVER['PHP_AUTH_PW']);
-}
+}*/
 
-if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
-
-    || ($_SERVER['PHP_AUTH_USER'] != USER_LOGIN)
-
-    || ($_SERVER['PHP_AUTH_PW'] != USER_PASSWORD)) {
-
-  header('HTTP/1.1 401 Unauthorized');
-
-  header('WWW-Authenticate: Basic realm="Our Blog"');
+if (!isset($_SESSION['Authenticated'])) {
 
   exit("Access Denied: Username and password required.");
 
