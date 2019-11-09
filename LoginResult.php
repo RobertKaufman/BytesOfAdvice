@@ -11,7 +11,7 @@ try{
   //pull all the user name records
   //and match it the attempted one in the collection to see if it already exists. if it does, set successflag to false
 
-  $getUserNamesStatment = "SELECT UserName, Password FROM users";
+  $getUserNamesStatment = "SELECT UserName, Password, Admin FROM users";
   $checkPDO = $db->prepare($getUserNamesStatment);
   $checkPDO->execute();
   while($checkUser = $checkPDO->fetch())
@@ -21,6 +21,12 @@ try{
       $SuccessFlag = True;
       $_SESSION['Authenticated'] = "true";
       $_SESSION['CurrentUser'] = $AttemptedName;
+
+      //if the user is denoted as a admin user in the database, set a session variable to denote them as an admin
+      if(isset($checkUser['Admin']))
+      {
+        $_SESSION['AdminUser'] = 'true';
+      }
       
     }
   }

@@ -3,12 +3,12 @@
    <i class="fas fa-align-center    "><h6>Users and admins can use the pages below</h6></i>
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link active" href="AddRecommendation.php">Add a recommended course!</a>
+                <a class="nav-link active" href="../AddRecommendation.php">Add a recommended course!</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="userpage/userhomepage.php">View your profile</a>
+                <a class="nav-link active" href="../userpage/userhomepage.php">View your profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="logout.php">Log Out</a>
+                <a class="nav-link active" href="../logout.php">Log Out</a>
             </li>
         </ul>  

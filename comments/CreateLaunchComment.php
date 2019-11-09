@@ -1,5 +1,6 @@
 <?php
-    require 'authenticateuser.php';
+    require '../authenticateuser.php';
+    $_SESSION['SendingPage'] = 'LaunchPage';
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,12 +20,19 @@
    </div>
    <div id='Content'>
     </div>
-    <?php require 'Templates/topnavbar.php';?>
+    <?php require '../Templates/FileUptopnavbar.php';?>
     <div id='commentForm'>
+        <<div class="form-group">
+        <form action='commentresult.php' method='post'>
+          <label for="usercomment"></label>
+          <input type="text" class="form-control" name="usercomment" id="usercomment" aria-describedby="helpId" placeholder="Make Your comment here!">
+          <small id="helpId" class="form-text text-muted">please be respectful of others!</small>
+          <<button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </div>
 
 
-    <?php require 'templates/bottomnavbar.php';?>
+    <?php require '../Templates/FileUpbottomnavbar.php';?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
