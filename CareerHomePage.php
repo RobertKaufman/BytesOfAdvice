@@ -31,6 +31,10 @@ CurrentUser
   $pdoExectue = $db->prepare($SelectCareersStatement);
   $pdoExectue->execute();
   $careerList = $pdoExectue->fetchAll();
+
+  $allBlogs = "SELECT * FROM comments WHERE page='CareerPage' ORDER BY commentpk DESC LIMIT 5";
+  $fetchStatement = $db->prepare($allBlogs); // Returns a PDOStatement object.
+  $fetchStatement->execute(); // The query is now executed.
 ?>
 
 
@@ -65,6 +69,24 @@ CurrentUser
       </select>
       <input type='submit' value='Submit'>
     </form>
+    </div>
+    <div id='CommentContainer'>
+    <h5>Have a commment about some data we are presenting?</h5>
+    <form id='launchcomment'>
+    <button name='launchcomment' formid='launchcomment' type="submit" formaction='comments/CreateCareerComment.php' formmethod='post' class="btn btn-primary">Leave a comment</button>
+      <!--<a name="sendToComments" class="btn btn-primary" href="CreateLaunchComment.php" role="button">Click here to create a new post</a>-->
+      <a name="sendToNewUser" class="btn btn-primary" href="CreateAccount.php" role="button">Click here to register for an account</a>
+    </form>
+    <br>
+      <div id='Comments'>
+      <?php if( $fetchStatement->rowCount() > 0):?>
+        <?php while ($comment = $fetchStatement->fetch()): ?>
+        <p> Posted by: <?= $comment['user']?> </p>
+        <p><?= $comment['comment']?></p>
+        <br>
+        <?php endwhile ?>
+        <?php endif ?>
+      </div>
     </div>
     <?php require 'templates/bottomnavbar.php';?>
     <!-- Optional JavaScript -->
