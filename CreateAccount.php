@@ -45,6 +45,29 @@
                 <input type="text"
                 class="form-control" name="UserPass" id="UserPass" aria-describedby="helpId" placeholder="Be Smart!">
                 <small id="helpId" class="form-text text-muted">Password</small>
+                <label for="NewUserPassCheck"></label>
+                <input type="text"
+                class="form-control" name="UserPassCheck" id="UserPassCheck" aria-describedby="helpId" placeholder="Make sure they are the same">
+                <small id="helpId" class="form-text text-muted">Password</small>
+                <input type="submit" value="Submit">
+            </form>
+       </div>
+    </div>
+    <div id='AdminApplication'>
+   <h4>Apply to be an admin</h4>
+       <div class="form-group">
+            <form action='AdminApplication.php' method='post'>
+                <label for="NewUserName"></label>
+                <input type="text"
+                class="form-control" name="UserName" id="UserName" aria-describedby="helpId" placeholder="Be Creative!">
+                <small id="helpId" class="form-text text-muted">UserName</small>
+                <label for="NewUserPass"></label>
+                <input type="text"
+                class="form-control" name="UserPass" id="UserPass" aria-describedby="helpId" placeholder="Be Smart!">
+                <small id="helpId" class="form-text text-muted">Password</small>
+                <input type="text"
+                class="form-control" name="UserEmail" id="UserEmail" aria-describedby="helpId" placeholder="Email required to be an admin">
+                <small id="helpId" class="form-text text-muted">Email</small>
                 <input type="submit" value="Submit">
             </form>
        </div>

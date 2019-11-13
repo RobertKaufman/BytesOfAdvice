@@ -1,8 +1,7 @@
 <?php
 
     require 'connect.php';
-    unset($_SESSION['Authenticated']);
-    unset($_SESSION['CurrentUser']);
+    session_destroy();
 ?>
 
 <!doctype html>

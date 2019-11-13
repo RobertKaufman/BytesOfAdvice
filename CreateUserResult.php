@@ -3,6 +3,7 @@
 require('connect.php');
 $AttemptedName = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_SPECIAL_CHARS);
 $AttemptedPass = filter_input(INPUT_POST, 'UserPass', FILTER_DEFAULT);
+$AttemptedPassCheck = filter_input(INPUT_POST, 'UserPassCheck', FILTER_DEFAULT);
 $SuccessFlag = true;
 
 
@@ -23,7 +24,11 @@ try{
     }
   }
 
-
+  if($attemptedPass != $attemptedPassCheck)
+  {
+    $SuccessFlag = false;
+    ECHO "Passwords did not match. please try again!";
+  }
   if($SuccessFlag == true)
   {
     $newUserData = "INSERT INTO users (UserName, Password, Email) VALUES (:username, :password, NULL)";
@@ -33,7 +38,7 @@ try{
     $insertPDO->execute();
     session_start();
     $_SESSION['Authenticated'] = "true";
-    $_SERVER['PHP_AUTH_USER'] = $AttemptedName;
+    $_SESSION['CurrentUser'] = $AttemptedName;
   }
 
 }
