@@ -12,6 +12,9 @@
                 <a class="nav-link active" href="AddANewCareer.php">Add a new Career</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active" href="changepage/launchchange.php">Edit/Delete pages</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" href="logout.php">Log Out</a>
             </li>
         </ul>  

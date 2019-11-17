@@ -32,6 +32,32 @@ Impliment PHP to pull comments from previous students
         the careers that they want to presue. Take a while to look at see through all the prepared careers, and make a comment if you think any of the information
         can be improved.</i>
     </div>
+    <div id='searchbar'> 
+    <div class="form-check">
+    <form action="searchsite.php" method='post'>
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="department" id="department" value="career" checked>
+        Careers
+      </label>
+      <p>_________<p>
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="department" id="department" value="courses" checked>
+        Courses
+      </label>
+      <p>_________<p>
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="department" id="department" value="comments" checked>
+        Comments
+      </label>
+      <div class="form-group">
+        <label for=""></label>
+        <input type="text" class="form-control" name="searchtext" id="searchtext" aria-describedby="helpId" placeholder="what are you looking for?">
+        <small id="helpId" class="form-text text-muted">keyword to search</small>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+    </div>
+    </div>
     <?php require 'Templates/topnavbar.php';?>
 
     <div id='CommentContainer'>
