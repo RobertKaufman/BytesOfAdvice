@@ -52,15 +52,18 @@
   <?php include 'Templates/topnavbar.php'?>
     <p> we found the following results in the <?= $searchTable?> page for the term <?=$attemptedSearchBarText?></p>
     <?php
-        while($result = $searchPDO->fetch()):
+        //while
+        ($result = $searchPDO->fetchAll())        
     ?>
-    <?=print_r($result)?>
-        <!--<p> php start foreachforeach($result as list($title => $content)):?>
-        Title:  var_dump($title)?>
-        Content:  var_dump($content)?></p>
-        php end for each-->
+        <p> <?php foreach($result as $BigContent):?>
+        <?= print_r($BigContent)?>
+          <?php foreach($BigContent as $title => $content):?>
+            Title:  <?php $title?>
+            Content:  <?php $content?></p>
+            <?php endforeach?>
+        <?php endforeach;?>
+      <?php //endwhile?>
 
-    <?php endwhile;?>
   <?php include 'Templates/bottomnavbar.php'?>
       
     <!-- Optional JavaScript -->
