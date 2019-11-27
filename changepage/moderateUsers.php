@@ -35,8 +35,8 @@
             <td scope="row"><?=$user['UserName']?></td>
             <td><?=$user['Admin']?></td>
             <td><?=$user['Password']?></td>
-            <td><form><button formmethod='post' formaction='deleteUser.php' name=<?=$user['UserName']?> value=<?=$user['UserName']?> type="submit" class="btn btn-primary">Delete User?</button></form></td>
-            <td><form><button formmethod='post' formaction='updateUser.php' name=<?=$user['UserName']?> value=<?=$user['UserName']?> type="submit" class="btn btn-primary">Modify User?</button></form></td>
+            <td><form><button formmethod='post' formaction='deleteUser.php' id='UserName' name='UserName' value=<?=$user['UserName']?> type="submit" class="btn btn-primary">Delete User?</button></form></td>
+            <td><form><button formmethod='post' formaction='updateUser.php' id='UserName' name='UserName'value=<?=$user['UserName']?> type="submit" class="btn btn-primary">Modify User?</button></form></td>
         </tr>
         <?php endwhile?>
     </tbody>

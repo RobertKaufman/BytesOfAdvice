@@ -5,6 +5,7 @@
     $AttemptedEmail = filter_input(INPUT_POST, 'UserEmail', FILTER_SANITIZE_EMAIL);
     $userExists = false;
     $SuccessFlag = false;
+    $userExists = false;
 
 
 //automatically log in a user if they successfully create an account

@@ -1,5 +1,24 @@
 <?php
     require '../authenticateAdmin.php';
+    
+    $returnString = "The user sadly died, BUT THEN HE LIVED";
+    $ripUser = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_SPECIAL_CHARS);
+    try{
+      ECHO $ripUser;
+      $deleteString = 'DELETE FROM users WHERE UserName = :killedUser';
+      $deletePDO = $db->prepare($deleteString);
+      $deletePDO->bindValue(':killedUser', $ripUser);
+      $returnString = "The user sadly died, BUT THEN HE LIVED";
+      $deletePDO->execute();
+      $returnString = "Goodbye sweet prince. we hardly knew ye";
+    }
+    catch(PDOException $e)
+    {
+      print("Error: " . $e.getMessage());
+      die();//i like the name ok???
+    }
+
+
 
 ?>
 
@@ -16,6 +35,8 @@
   </head>
   <body>
   <?php require '../Templates/FileUptopnavbar.php'?>
+  <?=$returnString?>
+  <?php print_r($_POST)?>
   <?php require '../Templates/FileUpbottomnavbar.php'?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

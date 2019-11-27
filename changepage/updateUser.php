@@ -1,5 +1,7 @@
 <?php
     require '../authenticateAdmin.php';
+    $ripUser = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_SPECIAL_CHARS);
+    $_SESSION['PreviousUserName'] = $ripUser;
 
 ?>
 
@@ -16,6 +18,30 @@
   </head>
   <body>
   <?php require '../Templates/FileUptopnavbar.php'?>
+  <h3>Update user <?=$ripUser?></h3>
+    <form action="updateUserResult.php" method="post">
+    <div class="form-group">
+      <label for="newUserName">New User Name:</label>
+      <input type="text"
+        class="form-control" name="newUserName" id="newUserName" aria-describedby="helpId" placeholder="UserName">
+      <small id="helpId" class="form-text text-muted">The new users name</small>
+      <label for="newUserName">New User Password:</label>
+      <input type="text"
+        class="form-control" name="newUserPass" id="newUserPass" aria-describedby="helpId" placeholder="User password">
+      <small id="helpId" class="form-text text-muted">The new users Password</small>
+      <label for="newUserName">Confirm User Password:</label>
+      <input type="text"
+        class="form-control" name="newUserPass2" id="newUserPass2" aria-describedby="helpId" placeholder="User password">
+      <small id="helpId" class="form-text text-muted">The new users Password</small>
+      <label for="newUserName">User Email</label>
+      <input type="text"
+        class="form-control" name="newUserEmail" id="newUserEmail" aria-describedby="helpId" placeholder="User Email">
+      <small id="helpId" class="form-text text-muted">The new users Password</small>
+      <label for='admin'>Admin user?</label>
+      <input type="checkbox" name="admin" id="admin">
+    </div>
+    <input type="submit" value="Submit">
+    </form>
   <?php require '../Templates/FileUpbottomnavbar.php'?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

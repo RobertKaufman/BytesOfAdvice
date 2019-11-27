@@ -1,32 +1,15 @@
 <?php
     require '../authenticateAdmin.php';
-/*      <label for="newUserName">New User Name:</label>
-      <input type="text"
-        class="form-control" name="newUserName" id="newUserName" aria-describedby="helpId" placeholder="UserName">
-      <small id="helpId" class="form-text text-muted">The new users name</small>
-      <label for="newUserName">New User Password:</label>
-      <input type="text"
-        class="form-control" name="newUserPass" id="newUserPass" aria-describedby="helpId" placeholder="User password">
-      <small id="helpId" class="form-text text-muted">The new users Password</small>
-      <label for="newUserName">Confirm User Password:</label>
-      <input type="text"
-        class="form-control" name="newUserPass2" id="newUserPass2" aria-describedby="helpId" placeholder="User password">
-      <small id="helpId" class="form-text text-muted">The new users Password</small>
-      <label for="newUserName">User Email</label>
-      <input type="text"
-        class="form-control" name="newUserEmail" id="newUserEmail" aria-describedby="helpId" placeholder="User Email">
-      <small id="helpId" class="form-text text-muted">The new users Password</small>
-      <label for='admin'>Admin user?</label>
-      <input type="checkbox" name="admin" id="admin">
-    </div>*/
     $AttemptedName = filter_input(INPUT_POST, 'newUserName', FILTER_SANITIZE_STRING);
     $AttemptedPass = filter_input(INPUT_POST, 'newUserPass', FILTER_SANITIZE_STRING);
     $attemptedPassCheck = filter_input(INPUT_POST, 'newUserPass2', FILTER_SANITIZE_STRING);
     $AttemptedEmail = filter_input(INPUT_POST, 'newUserEmail', FILTER_SANITIZE_EMAIL);
     $isAdmin = filter_input(INPUT_POST, 'admin', FILTER_VALIDATE_BOOLEAN);
+    $previousName = $_SESSION['PreviousUserName'];
     $SuccessFlag = true;
     $userExists = false;
     $userCreationString = 'Unsuccessful';
+    ECHO $previousName;
 
     try{
       //pull all the user name records
@@ -50,12 +33,13 @@
       }
       if($SuccessFlag == true)
       {
-        $newUserData = "INSERT INTO users (UserName, Password, Email) VALUES (:username, :password, NULL)";
+        $newUserData = "UPDATE users SET UserName =:username, Password = :password, admin = false, Email = null WHERE UserName = :previousUserName";
         $insertPDO = $db->prepare($newUserData);
         $insertPDO->bindValue(':username', $AttemptedName);
+        $insertPDO->bindValue(':previousUserName', $previousName);
         $insertPDO->bindValue(':password', $AttemptedPass);
         $insertPDO->execute();
-        $userCreationString = 'User successfully created';
+        $userCreationString = 'User successfully updated';
       }
 
       if($isAdmin == true)
@@ -99,7 +83,6 @@
       die();//i like the name ok???
     }
 
-
 ?>
 
 <!doctype html>
@@ -114,9 +97,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-
-  <p> <?=$userCreationString?>, <?$outputString?><p>
   <?php require '../Templates/FileUptopnavbar.php'?>
+  <p> yay, you did it. I dont have the energy to fill these out anymore </p>
+  <p><?=$userCreationString?>
   <?php require '../Templates/FileUpbottomnavbar.php'?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
