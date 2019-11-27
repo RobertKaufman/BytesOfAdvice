@@ -46,8 +46,8 @@ $CourseList = $pdoCourseExecute->fetchAll();
       <input type="number" name="newSalary" id="newSalary">
       <label for="newDemand">Updated Demand</label>
       <input type="text" name="newDemand" id="newDemand">
-      <input type="submit" value="Update">
-      <input type="submit" value="Delete">
+      <input id='update-submit' type="submit" name='submit' value="Update">
+      <input id='delete-submit' type="submit" name='submit' value="Delete">
     </form>
         <br>
         <br>
@@ -64,8 +64,8 @@ $CourseList = $pdoCourseExecute->fetchAll();
         <label for="newDescription">Updated Description</label>
         <textarea class="form-control" name="newDescription" id="newDescription" rows="3"></textarea>
       </div>
-      <input type="submit" value="Update">
-      <input type="submit" value="Delete">
+      <input id='update-submit' type='submit' name='submit' value='Update'>
+      <input id='delete-submit' type='submit' name='submit' value='Delete'>
     </form>
   <?php require '../Templates/FileUpbottomnavbar.php'?>
       
