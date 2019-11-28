@@ -57,11 +57,11 @@
     ?>
         <p> <?php foreach($result as $BigContent):?>
         <?= print_r($BigContent)?>
-          <?php foreach($BigContent as $title => $content):?>
-            Title:  <?php $title?>
+          <?php //foreach($BigContent as $title => $content):?>
+            Title:  <?= $BigContent[0]?>
             Content:  <?php $content?></p>
             <?php endforeach?>
-        <?php endforeach;?>
+        <?php //endforeach;?>
       <?php //endwhile?>
 
   <?php include 'Templates/bottomnavbar.php'?>

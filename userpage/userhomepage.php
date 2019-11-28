@@ -1,5 +1,8 @@
 <?php
     require "../connect.php";
+    //Credit for the file upload API to https://github.com/brandonsavage/Upload
+      require '../vendor/autoload.php';
+
 ?>
 
 <!doctype html>
@@ -24,9 +27,9 @@
     <div class='upload'>
     <h4>upload a transcript below!</h4>
     <form action='uploadedtranscript.php' method='post' enctype='mutlipart/form-data'>
-    <input type='file' name='transcript' size='900'/>
+    <input type='file' name='foo' value=''/>
+    <input type="submit" value="Upload File"/>
     <br>
-    <input type='submit' value='Upload Transcript'/>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
