@@ -1,9 +1,9 @@
 <?php
     require '../authenticateuser.php';
     require '../vendor/autoload.php';
-    $transcript = $_POST['transcript'];
-    $storageFile = new \Upload\Storage\FileSystem('../transcripts');
-    $uploadedFile = new \Upload\File('transcript', $storageFile);
+    $transcript = $_FILES['transcript'];
+    $storageFile = new \Upload\Storage\FileSystem('C:\xampp\htdocs\FinalProject\BytesOfAdvice\vendor\codeguy\upload\src\Upload\Storage');
+    $uploadedFile = new \Upload\File($transcript, $storageFile);
     $currentUser = $_SESSION['CurrentUser'];
     $outputString = 'what did you expect?';
 

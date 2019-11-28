@@ -27,7 +27,7 @@
     <div class='upload'>
     <h4>upload a transcript below!</h4>
     <form action='uploadedtranscript.php' method='post' enctype='mutlipart/form-data'>
-    <input type='file' name='foo' value=''/>
+    <input type='file' name='transcript' value=''/>
     <input type="submit" value="Upload File"/>
     <br>
     <!-- Optional JavaScript -->
