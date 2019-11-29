@@ -3,7 +3,9 @@
     $submittingUser = $_SESSION['CurrentUser'];
     $submittedPost = filter_input(INPUT_POST, 'usercomment', FILTER_SANITIZE_SPECIAL_CHARS);
     $sendingPage = $_SESSION['SendingPage'];
-
+    $sessionCaptcha = $_SESSION['captcha_code'];
+    $userCaptcha = filter_input(INPUT_POST, 'captcha_code', FILTER_SANITIZE_STRING);
+  if($sessionCaptcha == $userCaptcha){
     try{
         $commentString = "INSERT INTO comments (comment,page,user) VALUES (:comment, :page, :user)";
         $insertPDO = $db->prepare($commentString);
@@ -17,6 +19,12 @@
       print("Error: " . $e.getMessage());
       die();//i like the name ok???
     }
+  }
+  else
+  {
+    $successFlag = false;
+    ECHO "incorrect captcha. Do better, lousy meatbag";
+  }
 ?>
 <!doctype html>
 <html lang="en">

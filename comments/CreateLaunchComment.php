@@ -27,6 +27,9 @@
           <label for="usercomment"></label>
           <input type="text" class="form-control" name="usercomment" id="usercomment" aria-describedby="helpId" placeholder="Make Your comment here!">
           <small id="helpId" class="form-text text-muted">please be respectful of others!</small>
+          <img src="../captcha_code.php" />
+          <label for='captch_code'>
+          <input type='text' class='form-control' id='captcha_code' placeholder='provide the captcha code please' name="captcha_code" type="text"><br>
           <<button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>

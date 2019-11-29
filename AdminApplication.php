@@ -19,7 +19,7 @@ try{
   $checkPDO->execute();
   while($checkUser = $checkPDO->fetch())
   {
-    if($AttemptedName == $checkUser['UserName'] && $AttemptedPass == $checkUser['Password'])
+    if($AttemptedName == $checkUser['UserName'] && password_verify($AttemptedPass, $checkUser['Password']))
     {
       $userExists = True;
       $_SESSION['Authenticated'] = "true";
@@ -77,7 +77,7 @@ catch(PDOException $e)
       <i class="fa fa-align-center" aria-hidden="true"><h3>Bit Career Recommendations!</h3></i>
    </div>
     <?php require 'Templates/topnavbar.php';?>
-    <p> Congrats <?=$AttemptedName?> <?= $outputString?>, we can reach you at <?=$AttemptedEmail?></p>
+    <p> <?=$AttemptedName?> <?= $outputString?>, we can reach you at <?=$AttemptedEmail?></p>
     <?php require 'Templates/bottomnavbar.php';?>
       
     <!-- Optional JavaScript -->
